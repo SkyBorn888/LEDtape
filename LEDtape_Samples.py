@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 ###Color Sample###
 
 #pixels.fill((255, 0, 0))   :red
