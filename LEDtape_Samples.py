@@ -40,7 +40,6 @@ num_pixels = 47
 pixels = neopixel.NeoPixel(board.D18, num_pixels, brightness=0.4, auto_write=False, pixel_order=neopixel.GRB) #board.D18 = GPIO18 ピンの12番>
 colors = [0, 255, 128] #RGBの値を適当に書き込み
 
-
 def wheel(pos):
     # 0～255の値を入力
     # r - g - b - rといろを買える仕組みにする
@@ -62,9 +61,6 @@ def wheel(pos):
         b = int(255 - pos * 3)
     return (r, g, b) if neopixel.GRB in (neopixel.RGB, neopixel.GRB) else (r, g, b, 0)
 
-
-
-
 def rainbow_cycle(wait):
     for j in range(255):
         for i in range(num_pixels):
@@ -73,10 +69,13 @@ def rainbow_cycle(wait):
         pixels.show()
         time.sleep(wait)
 
+def clear_pix():
+    for i in range(num_pixels):
+        pixels[i] = (0, 0, 0)
+    pixels.show()
 
-
-while True: #無限におりゃーーー
-
+try:
+    while True: #無限におりゃーーー
         pixels.fill((random.choice(colors), random.choice(colors), random.choice(colors))) #ランダムにリストから抽出
         pixels.show()
         time.sleep(1)
@@ -87,3 +86,6 @@ while True: #無限におりゃーーー
         pixels.show()
         time.sleep(1)
         rainbow_cycle(0.001) #レインボーーーーーーーーーーーーーーーーーーーーーー
+except KeyboardInterrupt:
+    clear_pix()
+    print("Finish!!")
